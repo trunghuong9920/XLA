@@ -90,6 +90,25 @@ void nhanchap_1(Mat img) {
 		cout << "\n";
 	}
 }
+void Loctrungbinh_1(Mat img) {
+	cout << "Loc trung binh:\n";
+
+	int tong = 0;
+	for (int x = 1; x <= 8; x++) {
+		for (int y = 1; y < 8; y++) {
+			int tg = 0;
+			int sg = 0;
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					tong = tong + img.at<uchar>(x + i, y + j);
+				}
+			}
+			cout << (double)tong / 9 << "\t";
+			tong = 0;
+		}
+		cout << "\n";
+	}
+}
 
 void tuongquan_2() {
 	int tong = 0;
@@ -185,7 +204,7 @@ void nhanchap_2() {
 	cout << "Vung anh khop voi mau nhat: " << max;
 
 }
-void loctrungbinh() {
+void loctrungbinh_2() {
 	int tong = 0;
 	cout << "\nMa tran loc trung binh: \n";
 	for (int x = 1; x < n + 1; x++) {
@@ -219,7 +238,8 @@ int main() {
 	nhapmatran();
 	//tuongquan_2();
 	//nhanchap_2();
-	loctrungbinh();
+	loctrungbinh_2();
+	//Loctrungbinh_1(img);
 	waitKey();
 	return 0;
 }

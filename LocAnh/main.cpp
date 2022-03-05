@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
@@ -7,7 +7,7 @@ using namespace std;
 using namespace cv;
 
 const int Max = 50;
-int a[Max][Max], K[Max][Max], b[Max][Max];
+int a[Max][Max], K[Max][Max], b[Max][Max], c[2000][2000];
 int n, m;
 
 void nhapmatran() {
@@ -16,8 +16,8 @@ void nhapmatran() {
 	cin >> m;
 	cout << "So cot: ";
 	cin >> n;
-	for (int i = 0; i <= n+1; i++) {
-		for (int j = 0; j <= m+1; j++) {
+	for (int i = 0; i <= n + 1; i++) {
+		for (int j = 0; j <= m + 1; j++) {
 			a[i][j] = 0;
 		}
 	}
@@ -36,7 +36,7 @@ void nhapmatran() {
 	cout << "\nMa tran anh la: \n";
 	for (int i = 1; i < n + 1; i++) {
 		for (int j = 1; j < m + 1; j++) {
-			cout <<a[i][j]<<"\t";
+			cout << a[i][j] << "\t";
 		}
 		cout << endl;
 	}
@@ -64,7 +64,7 @@ void tuongquan_1(Mat img) {
 					sg += img.at<uchar>(x + i, y + j);
 				}
 			}
-			cout << (double)tong/(sqrt(9) * sqrt(sg)) << "\t";
+			cout << (double)tong / (sqrt(9) * sqrt(sg)) << "\t";
 			tong = 0;
 		}
 		cout << "\n";
@@ -91,22 +91,29 @@ void nhanchap_1(Mat img) {
 	}
 }
 void Loctrungbinh_1(Mat img) {
-	cout << "Loc trung binh:\n";
-
+	int p, q;
+	cout << "Nhap kich thuoc bo loc: ";
+	cout << "\nChieu rong = "; cin >> p;
+	cout << "Chieu cao = "; cin >> q;
+	cout << "\nLoc trung binh :\n";
 	int tong = 0;
-	for (int x = 1; x <= 8; x++) {
-		for (int y = 1; y < 8; y++) {
-			int tg = 0;
-			int sg = 0;
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					tong = tong + img.at<uchar>(x + i, y + j);
+	for (int x = 1; x < img.cols - 1; x++) {
+		for (int y = 1; y < img.rows - 1; y++) {
+			for (int i = -1; i < p - 1; i++) {
+				for (int j = -1; j < q - 1; j++) {
+					tong = tong + img.at<uchar>(x + i, y + j) * 1;
 				}
 			}
-			cout << (double)tong / 9 << "\t";
+			c[x][y] = round((double)tong / (p * q));
+
 			tong = 0;
 		}
 		cout << "\n";
+	}
+	for (int x = 1; x < img.cols - 1; x++) {
+		for (int y = 1; y < img.rows - 1; y++) {
+			img.at<uchar>(x, y) = c[x][y];
+		}
 	}
 }
 
@@ -115,10 +122,10 @@ void tuongquan_2() {
 	cout << "\nMa tran phep tuong quan: \n";
 	for (int x = 1; x < n + 1; x++) {
 		for (int y = 1; y < m + 1; y++) {
-			
+
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					tong = tong + a[x + i][y + j]*K[i][j];
+					tong = tong + a[x + i][y + j] * K[i][j];
 				}
 			}
 			cout << tong << "\t";
@@ -143,7 +150,7 @@ void tuongquan_2() {
 				}
 			}
 			chuanhoa = (tong * 1.0) / (sqrt(temp1) * sqrt(temp2));
-			cout << fixed<<chuanhoa << "\t";
+			cout << fixed << chuanhoa << "\t";
 			if (max < chuanhoa) {
 				max = chuanhoa;
 			}
@@ -215,7 +222,7 @@ void loctrungbinh_2() {
 					tong = tong + a[x + i][y + j] * K[i][j];
 				}
 			}
-			cout << round((double)tong/9) << "\t";
+			cout << round((double)tong / 9) << "\t";
 			tong = 0;
 		}
 		cout << endl;
@@ -223,23 +230,24 @@ void loctrungbinh_2() {
 }
 
 int main() {
-	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new.jpg", 1);
-	//imshow("Show IMG", img);
+	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new4.png", 1);
+	imshow("Show IMG", img);
 	/*
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
 			cout << (int)img.at<uchar>(i, j) << " ";
 		}
 		cout << endl;
-	}
-	*/
+	}*/
+	
 	//tuongquan_1(img);
 
-	nhapmatran();
+	//nhapmatran();
 	//tuongquan_2();
 	//nhanchap_2();
-	loctrungbinh_2();
-	//Loctrungbinh_1(img);
+	//loctrungbinh_2();
+	Loctrungbinh_1(img);
+	imshow("Fillter", img);
 	waitKey();
 	return 0;
 }

@@ -90,31 +90,34 @@ void nhanchap_1(Mat img) {
 		cout << "\n";
 	}
 }
-void Loctrungbinh_1(Mat img) {
-	int p, q;
+#include <iostream>
+#include<math.h>
+#include<opencv2/core/core.hpp>
+#include<opencv2/highgui/highgui.hpp>
+#include<opencv2/imgproc/imgproc.hpp>
+using namespace cv;
+using namespace std;
+
+void Fillter(Mat img) {
+	Mat image = img.clone();
+	int n, m;
 	cout << "Nhap kich thuoc bo loc: ";
-	cout << "\nChieu rong = "; cin >> p;
-	cout << "Chieu cao = "; cin >> q;
-	cout << "\nLoc trung binh :\n";
-	int tong = 0;
-	int temp = p / 2;
-	for (int x = temp; x < img.cols - temp; x++) {
-		for (int y = temp; y < img.rows - temp; y++) {
-			for (int i = -temp; i < p - temp; i++) {
-				for (int j = -temp; j < q - temp; j++) {
-					tong = tong + img.at<uchar>(x + i, y + j) * 1;
+	cout << "\nChieu rong = "; cin >> n;
+	cout << "Chieu cao = "; cin >> m;
+	int temp = n / 2;
+	for (int x = temp; x < img.rows - temp; x++) {
+		for (int y = temp; y < img.cols - temp; y++) {
+			int tong = 0;
+			for (int i = -temp; i < n - temp; i++) {
+				for (int j = -temp; j < m - temp; j++) {
+					tong = tong + img.at<uchar>(x + i, y + j);
 				}
 			}
-			c[x][y] = round((double)tong / (p * q));
-			tong = 0;
-		}
-		cout << "\n";
-	}
-	for (int x = temp; x < img.cols - temp; x++) {
-		for (int y = temp; y < img.rows - temp; y++) {
-			img.at<uchar>(x, y) = c[x][y];
+			image.at<uchar>(x, y) = tong / (n * m);
 		}
 	}
+	imshow("After Fillter", image);
+
 }
 
 void tuongquan_2() {
@@ -230,24 +233,23 @@ void loctrungbinh_2() {
 }
 
 int main() {
-	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new4.png", 1);
+	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new4.png", 0);
 	//imshow("Show IMG", img);
-	
+
 	/*for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
 			cout << (int)img.at<uchar>(i, j) << " ";
 		}
 		cout << endl;
 	}*/
-	
+
 	//tuongquan_1(img);
 
 	//nhapmatran();
 	//tuongquan_2();
 	//nhanchap_2();
 	//loctrungbinh_2();
-	Loctrungbinh_1(img);
-	imshow("Fillter", img);
+	Fillter(img);
 	waitKey();
 	return 0;
 }

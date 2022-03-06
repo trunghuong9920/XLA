@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
@@ -97,21 +97,21 @@ void Loctrungbinh_1(Mat img) {
 	cout << "Chieu cao = "; cin >> q;
 	cout << "\nLoc trung binh :\n";
 	int tong = 0;
-	for (int x = 1; x < img.cols - 1; x++) {
-		for (int y = 1; y < img.rows - 1; y++) {
-			for (int i = -1; i < p - 1; i++) {
-				for (int j = -1; j < q - 1; j++) {
+	int temp = p / 2;
+	for (int x = temp; x < img.cols - temp; x++) {
+		for (int y = temp; y < img.rows - temp; y++) {
+			for (int i = -temp; i < p - temp; i++) {
+				for (int j = -temp; j < q - temp; j++) {
 					tong = tong + img.at<uchar>(x + i, y + j) * 1;
 				}
 			}
 			c[x][y] = round((double)tong / (p * q));
-
 			tong = 0;
 		}
 		cout << "\n";
 	}
-	for (int x = 1; x < img.cols - 1; x++) {
-		for (int y = 1; y < img.rows - 1; y++) {
+	for (int x = temp; x < img.cols - temp; x++) {
+		for (int y = temp; y < img.rows - temp; y++) {
 			img.at<uchar>(x, y) = c[x][y];
 		}
 	}
@@ -231,9 +231,9 @@ void loctrungbinh_2() {
 
 int main() {
 	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new4.png", 1);
-	imshow("Show IMG", img);
-	/*
-	for (int i = 0; i < 20; i++) {
+	//imshow("Show IMG", img);
+	
+	/*for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
 			cout << (int)img.at<uchar>(i, j) << " ";
 		}

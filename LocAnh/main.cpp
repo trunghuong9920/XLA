@@ -3,11 +3,12 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <math.h>
+#include <algorithm>
 using namespace std;
 using namespace cv;
 
 const int Max = 50;
-int a[Max][Max], K[Max][Max], b[Max][Max], c[2000][2000];
+int a[Max][Max], K[Max][Max], b[Max][Max], matrix[Max];
 int n, m;
 
 void nhapmatran() {
@@ -27,12 +28,12 @@ void nhapmatran() {
 			cout << "a[" << i << "][" << j << "] = "; cin >> a[i][j];
 		}
 	}
-	cout << "Nhap ma tran mat na: \n";
+	/*cout << "Nhap ma tran mat na: \n";
 	for (int i = -1; i < 2; i++) {
 		for (int j = -1; j < 2; j++) {
 			cout << "K[" << i << "][" << j << "] = "; cin >> K[i][j];
 		}
-	}
+	}*/
 	cout << "\nMa tran anh la: \n";
 	for (int i = 1; i < n + 1; i++) {
 		for (int j = 1; j < m + 1; j++) {
@@ -40,13 +41,13 @@ void nhapmatran() {
 		}
 		cout << endl;
 	}
-	cout << "\nMa tran mat na:\n";
+	/*cout << "\nMa tran mat na:\n";
 	for (int i = -1; i < 2; i++) {
 		for (int j = -1; j < 2; j++) {
 			cout << K[i][j] << "\t";
 		}
 		cout << endl;
-	}
+	}*/
 
 }
 
@@ -90,13 +91,6 @@ void nhanchap_1(Mat img) {
 		cout << "\n";
 	}
 }
-#include <iostream>
-#include<math.h>
-#include<opencv2/core/core.hpp>
-#include<opencv2/highgui/highgui.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
-using namespace cv;
-using namespace std;
 
 void Fillter(Mat img) {
 	Mat image = img.clone();
@@ -114,6 +108,33 @@ void Fillter(Mat img) {
 				}
 			}
 			image.at<uchar>(x, y) = tong / (n * m);
+		}
+	}
+	imshow("After Fillter", image);
+
+}
+
+void MedFillter(Mat img) {
+	Mat image = img.clone();
+	int n, m;
+	vector<int> matrix;
+	cout << "Nhap kich thuoc bo loc: ";
+	cout << "\nChieu rong = "; cin >> n;
+	cout << "Chieu cao = "; cin >> m;
+	int temp = n / 2;
+	int centrel = n * m / 2;
+	for (int x = temp; x < img.rows - temp; x++) {
+		for (int y = temp; y < img.cols - temp; y++) {
+			int tong = 0;
+			for (int i = -temp; i < n - temp; i++) {
+				for (int j = -temp; j < m - temp; j++) {
+					matrix.push_back(img.at<uchar>(x + i, y + j));
+				}
+			}
+			sort(matrix.begin(), matrix.end());
+
+			image.at<uchar>(x, y) = matrix.at(centrel);
+			matrix.clear();
 		}
 	}
 	imshow("After Fillter", image);
@@ -232,6 +253,35 @@ void loctrungbinh_2() {
 	}
 }
 
+bool comp(const int a, const int b) {
+	return a < b;
+}
+
+void loctrungvi_2() {
+	vector<int> matrix;
+	cout << "\nMa tran loc trung vi: \n";
+	for (int x = 1; x < n + 1; x++) {
+		for (int y = 1; y < m + 1; y++) {
+
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					matrix.push_back(a[x + i][y + j]);
+				}
+			}
+			sort(matrix.begin(), matrix.end());
+			for (int i = 0; i < 9; i++) {
+				cout << matrix.at(i) << " ";
+			}
+			matrix.clear();
+			cout << endl;
+
+			
+		}
+		
+	}
+	
+}
+
 int main() {
 	Mat img = imread("D://Documents//XLA//TH//Loc_anh//new4.png", 0);
 	//imshow("Show IMG", img);
@@ -246,10 +296,12 @@ int main() {
 	//tuongquan_1(img);
 
 	//nhapmatran();
+	//loctrungvi_2();
 	//tuongquan_2();
 	//nhanchap_2();
 	//loctrungbinh_2();
-	Fillter(img);
+	//Fillter(img);
+	MedFillter(img);
 	waitKey();
 	return 0;
 }

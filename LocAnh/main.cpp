@@ -117,7 +117,6 @@ void Fillter(Mat img) {
 void MedFillter(Mat img) {
 	Mat image = img.clone();
 	int n, m;
-	vector<int> matrix;
 	cout << "Nhap kich thuoc bo loc: ";
 	cout << "\nChieu rong = "; cin >> n;
 	cout << "Chieu cao = "; cin >> m;
@@ -125,7 +124,8 @@ void MedFillter(Mat img) {
 	int centrel = n * m / 2;
 	for (int x = temp; x < img.rows - temp; x++) {
 		for (int y = temp; y < img.cols - temp; y++) {
-			int tong = 0;
+			vector<int> matrix;
+
 			for (int i = -temp; i < n - temp; i++) {
 				for (int j = -temp; j < m - temp; j++) {
 					matrix.push_back(img.at<uchar>(x + i, y + j));
@@ -134,7 +134,6 @@ void MedFillter(Mat img) {
 			sort(matrix.begin(), matrix.end());
 
 			image.at<uchar>(x, y) = matrix.at(centrel);
-			matrix.clear();
 		}
 	}
 	imshow("After Fillter", image);
@@ -292,16 +291,28 @@ int main() {
 		}
 		cout << endl;
 	}*/
+	Mat dst;
+	int h[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+	Mat k(3, 3, CV_8UC1, h);
+	filter2D(img, dst, -1, k, Point(-1,-1),0,4);		
+	blur(img, dst, Size(3, 3), Point(-1, -1), 4);		//loc trung binh
+	imshow("fillter", dst);
+
+
+	medianBlur(img, dst, 5);						//loc trung vi
+	imshow("Medianfillter", dst);
+
+	GaussianBlur(img, dst, Size(3, 3), 1, 4);
+	imshow("Gaussfillter", dst);
 
 	//tuongquan_1(img);
-
 	//nhapmatran();
 	//loctrungvi_2();
 	//tuongquan_2();
 	//nhanchap_2();
 	//loctrungbinh_2();
 	//Fillter(img);
-	MedFillter(img);
+	//MedFillter(img);
 	waitKey();
 	return 0;
 }

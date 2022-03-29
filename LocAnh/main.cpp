@@ -28,12 +28,12 @@ void nhapmatran() {
 			cout << "a[" << i << "][" << j << "] = "; cin >> a[i][j];
 		}
 	}
-	/*cout << "Nhap ma tran mat na: \n";
+	cout << "Nhap ma tran mat na: \n";
 	for (int i = -1; i < 2; i++) {
 		for (int j = -1; j < 2; j++) {
 			cout << "K[" << i << "][" << j << "] = "; cin >> K[i][j];
 		}
-	}*/
+	}
 	cout << "\nMa tran anh la: \n";
 	for (int i = 1; i < n + 1; i++) {
 		for (int j = 1; j < m + 1; j++) {
@@ -41,13 +41,13 @@ void nhapmatran() {
 		}
 		cout << endl;
 	}
-	/*cout << "\nMa tran mat na:\n";
+	cout << "\nMa tran mat na:\n";
 	for (int i = -1; i < 2; i++) {
 		for (int j = -1; j < 2; j++) {
 			cout << K[i][j] << "\t";
 		}
 		cout << endl;
-	}*/
+	}
 
 }
 
@@ -239,13 +239,14 @@ void loctrungbinh_2() {
 	cout << "\nMa tran loc trung binh: \n";
 	for (int x = 1; x < n + 1; x++) {
 		for (int y = 1; y < m + 1; y++) {
-
+			int temp= 0;
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					tong = tong + a[x + i][y + j] * K[i][j];
+					temp += K[i][j];
 				}
 			}
-			cout << round((double)tong / 9) << "\t";
+			cout << round((double)tong / temp) << "\t";
 			tong = 0;
 		}
 		cout << endl;
@@ -291,7 +292,7 @@ int main() {
 		}
 		cout << endl;
 	}*/
-	Mat dst;
+	/*Mat dst;
 	int h[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 	Mat k(3, 3, CV_8UC1, h);
 	filter2D(img, dst, -1, k, Point(-1,-1),0,4);		
@@ -303,14 +304,14 @@ int main() {
 	imshow("Medianfillter", dst);
 
 	GaussianBlur(img, dst, Size(3, 3), 1, 4);
-	imshow("Gaussfillter", dst);
+	imshow("Gaussfillter", dst);*/
 
 	//tuongquan_1(img);
-	//nhapmatran();
+	nhapmatran();
 	//loctrungvi_2();
 	//tuongquan_2();
 	//nhanchap_2();
-	//loctrungbinh_2();
+	loctrungbinh_2();
 	//Fillter(img);
 	//MedFillter(img);
 	waitKey();

@@ -265,19 +265,15 @@ void loctrungvi_2() {
 
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					matrix.push_back(a[x + i][y + j]);
+					matrix.push_back(a[x + i][y + j] * K[i][j]);
 				}
 			}
 			sort(matrix.begin(), matrix.end());
-			for (int i = 0; i < 9; i++) {
-				cout << matrix.at(i) << " ";
-			}
+			cout << matrix.at(4) << " ";
 			matrix.clear();
-			cout << endl;
-
-			
 		}
-		
+		cout << endl;
+
 	}
 	
 }
@@ -309,9 +305,9 @@ int main() {
 	//tuongquan_1(img);
 	nhapmatran();
 	//loctrungvi_2();
-	//tuongquan_2();
+	tuongquan_2();
 	//nhanchap_2();
-	loctrungbinh_2();
+	//loctrungbinh_2();
 	//Fillter(img);
 	//MedFillter(img);
 	waitKey();

@@ -3,17 +3,16 @@ import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt1
 
 
-matrix = [5, 4, 5, 8, 9,
-          7, 8, 1, 0, 4,
-          2, 3, 1, 7, 0,
-          4, 0, 7, 5, 1,
-          1, 9, 8, 9, 5]
+matrix = []
 
 
-M = 5
-N = 5
-mucxam = 5
+M = (int)(input("Nhập số Cột= "))
+N = (int)(input("Nhập số Dòng= "))
+mucxam = (int)(input("Nhập số mức xám= "))
 
+for i in range(M*N):
+    value = (int)(input("Nhập giá trị= "))
+    matrix.append(value)
 
 matrix2 = []
 dem = 0
@@ -91,14 +90,14 @@ for i in set(matrix_moi):
     nk_moi.append(matrix_moi.count(i))
 print('rk mới: ', rk_moi)
 print('nk mới: ', nk_moi)
-plt1.style.use('dark_background')
-plt1.title("Đồ thị ")
-plt1.xlabel("rk")
-plt1.ylabel("nk")
-plt1.bar(rk, nk, color='#00CCFF')
-plt1.show()
-plt.title("Đồ thị ")
-plt.xlabel("rk")
-plt.ylabel("nk")
-plt.bar(rk_moi, nk_moi, color='#B40062')
-plt.show()
+# plt1.style.use('dark_background')
+# plt1.title("Đồ thị ")
+# plt1.xlabel("rk")
+# plt1.ylabel("nk")
+# plt1.bar(rk, nk, color='#00CCFF')
+# plt1.show()
+# plt.title("Đồ thị ")
+# plt.xlabel("rk")
+# plt.ylabel("nk")
+# plt.bar(rk_moi, nk_moi, color='#B40062')
+# plt.show()

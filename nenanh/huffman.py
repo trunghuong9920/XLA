@@ -23,7 +23,6 @@ class node:
 # codes for all symbols in the newly
 # created Huffman tree
 
-
 def printNodes(node, val=''):
 	# huffman code for current node
 	newVal = val + str(node.huff)

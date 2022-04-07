@@ -23,7 +23,7 @@ nb = 0
 for i in matrix:
     if i == check:
         count +=1
-        if matrix[M*N - 1] == check and nb == M*N - 1:
+        if nb == M*N-1:
             arr = [count,check]
             countArr.append(arr)
     else:
@@ -31,6 +31,9 @@ for i in matrix:
         countArr.append(arr)
         count = 1
         check = i
+        if nb == M*N-1:
+            arr = [count,check]
+            countArr.append(arr)
     nb += 1
     
 

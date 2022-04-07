@@ -1,9 +1,18 @@
 import numpy as np
 import math
-col = 2
-row = 2
-matrix = [[0, 1], [1, 0]]
+col = (int)(input("Số cột= "))
+row = (int)(input("Số hàng= "))
 
+matrix = []
+for i in range(col):
+    arr = []
+    for j in range(row):
+        print("Maxtrix[",i,j,"] ")
+        value = (int)(input("= "))
+        arr.append(value)
+    matrix.append(arr)
+
+print(matrix)
 
 def dft(matrix, col, row):
     rows = row

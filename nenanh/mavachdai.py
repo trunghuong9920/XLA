@@ -14,8 +14,14 @@ bit = (int)(input("Số bit đầu = "))
 M = (int)(input("Nhập số cột = "))
 N = (int)(input("Nhập số hàng = "))
 
-matrix = (input("Nhập ma trận liên tục trái qua phải = "))
-
+matrix = []
+print("Nhập ma trận liên tục trái qua phải")
+for i in range(N):
+    for j in range(M):
+        print("Matrix[",i,j,"] :")
+        st = (int)(input("="))
+        matrix.append(st)
+print("IP = ",matrix,"\n")
 countArr = []
 check = matrix[0]
 count = 0

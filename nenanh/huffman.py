@@ -41,10 +41,16 @@ def printNodes(node, val=''):
 
 
 # characters for huffman tree
-ipString = input("Input: ")
 lsize = (int)(input("Dung lượng gốc l = "))
 M = (int)(input("M = "))
 N = (int)(input("N = "))
+ipString = []
+for i in range(M):
+	for j in range(N):
+		print("Matrix[",i,j,"]: ")
+		st = (int)(input("Input: "))
+		ipString.append(st)
+print("Matrix= ",ipString,"\n")
 
 dicString = {}
 for strIp in ipString:
